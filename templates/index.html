@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Customer Purchase Prediction</title>
+  <style>
+    :root{
+      --bg:#0d1b2a;--card:#1b263b;--accent:#00b4d8;--accent-dark:#0096c7;
+      --ok:#15b26b;--bad:#e45858;--text:#ffffff;--muted:#94a3b8;
+    }
+    body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;
+         color:var(--text);display:flex;min-height:100vh;align-items:center;justify-content:center}
+    .card{width:420px;max-width:95vw;background:linear-gradient(180deg,var(--card),#162338);
+          padding:28px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    h2{text-align:center;margin:0 0 18px;font-weight:800}
+    label{display:block;font-size:12px;color:var(--muted);margin:10px 4px 6px}
+    input,select{width:100%;padding:12px;border-radius:10px;border:none;margin-bottom:10px;background:#0f1a2b;color:#fff}
+    button{width:100%;padding:12px;border:none;border-radius:10px;background:var(--accent);color:white;font-weight:bold;cursor:pointer}
+    button:hover{background:var(--accent-dark)}
+    .result{margin-top:20px;padding:15px;border-radius:15px;text-align:center}
+    .ok{background:rgba(21,178,107,.15);border:1px solid rgba(21,178,107,.45)}
+    .bad{background:rgba(228,88,88,.15);border:1px solid rgba(228,88,88,.45)}
+    .emoji{font-size:36px;margin-bottom:8px}
+    video{width:100%;border-radius:12px;margin-top:12px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Customer Purchase Prediction</h2>
+
+    <form action="/predict" method="post">
+      <label>User ID</label>
+      <input type="text" name="user_id" placeholder="Enter User ID">
+
+      <label>Gender</label>
+      <select name="gender">
+        <option value="Male" selected>Male</option>
+        <option value="Female">Female</option>
+      </select>
+
+      <label>Age</label>
+      <input type="text" name="age" placeholder="Enter Age">
+
+      <label>Estimated Salary</label>
+      <input type="text" name="salary" placeholder="Enter Estimated Salary">
+
+      <button type="submit">Predict</button>
+    </form>
+
+    {% if pred is not none %}
+      {% if prediction == 1 %}
+        <div class="result ok">
+          <div class="emoji">🎉🛒✅</div>
+          <h3>Great News!</h3>
+          <p>{{ prediction_text }} (User ID: {{ user_id }})</p>
+           
+        </div>
+      {% else %}
+        <div class="result bad">
+          <div class="emoji">🛒</div>
+          <h3>Oops...</h3>
+          <p>{{ prediction_text }} (User ID: {{ user_id }})</p>
+           
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</body>
+</html>
