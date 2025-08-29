@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request
 import numpy as np
 import joblib
+import os
 
 # Flask app
 app = Flask(__name__)
 
 # Load trained model (model.pkl apna trained model ka naam hoga)
-model_path = r"C:\Users\pintu\OneDrive\Desktop\pint_project\scaler.joblib"
+model_path = os.path.join(os.path.dirname(__file__), "scaler.joblib")
 model = joblib.load(model_path)
 
 
